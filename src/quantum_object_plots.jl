@@ -1,15 +1,11 @@
 module QuantumObjectPlots
 
 export plot_unitary_populations
-export pretty_print
 
 using NamedTrajectories
 using QuantumCollocationCore
 using PiccoloQuantumObjects
 using TestItemRunner
-
-
-pretty_print(X::AbstractMatrix) = Base.show(stdout,"text/plain", X)
 
 function get_layout(index::Int, n::Int)
     √n = isqrt(n) + 1
@@ -31,6 +27,12 @@ end
     )
 
 Plot the populations of the unitary columns of the unitary matrix in the trajectory. `kwargs` are passed to [`NamedTrajectories.plot`](https://aarontrowbridge.github.io/NamedTrajectories.jl/dev/generated/plotting/).
+
+# Keyword Arguments
+- `unitary_columns::AbstractVector{Int}`: The columns of the unitary matrix to plot the populations of. Default is `1:2`.
+- `unitary_name::Symbol`: The name of the unitary matrix in the trajectory. Default is `:Ũ⃗`.
+- `control_name::Symbol`: The name of the control in the trajectory. Default is `:a`.
+- `kwargs...`: Additional keyword arguments passed to [`NamedTrajectories.plot`](https://kestrelquantum.github.io/NamedTrajectories.jl/dev/generated/plotting/). 
 """
 function plot_unitary_populations end
 
