@@ -3,7 +3,6 @@ module QuantumObjectPlots
 export plot_unitary_populations
 
 using NamedTrajectories
-using QuantumCollocationCore
 using PiccoloQuantumObjects
 using TestItemRunner
 
@@ -21,21 +20,14 @@ end
         kwargs...
     )
 
-    plot_unitary_populations(
-        prob::QuantumControlProblem;
-        kwargs...
-    )
-
 Plot the populations of the unitary columns of the unitary matrix in the trajectory. `kwargs` are passed to [`NamedTrajectories.plot`](https://aarontrowbridge.github.io/NamedTrajectories.jl/dev/generated/plotting/).
 
 # Keyword Arguments
 - `unitary_columns::AbstractVector{Int}`: The columns of the unitary matrix to plot the populations of. Default is `1:2`.
 - `unitary_name::Symbol`: The name of the unitary matrix in the trajectory. Default is `:Ũ⃗`.
 - `control_name::Symbol`: The name of the control in the trajectory. Default is `:a`.
-- `kwargs...`: Additional keyword arguments passed to [`NamedTrajectories.plot`](https://kestrelquantum.github.io/NamedTrajectories.jl/dev/generated/plotting/). 
+- `kwargs...`: Additional keyword arguments passed to [`NamedTrajectories.plot`](https://kestrelquantum.github.io/NamedTrajectories.jl/dev/generated/plotting/).
 """
-function plot_unitary_populations end
-
 function plot_unitary_populations(
     traj::NamedTrajectory;
     unitary_columns::AbstractVector{Int}=1:2,
@@ -66,8 +58,35 @@ function plot_unitary_populations(
     )
 end
 
-function plot_unitary_populations(prob::QuantumControlProblem; kwargs...)
-    plot_unitary_populations(prob.trajectory; kwargs...)
+@testitem "Plot unitary populations" begin
+    using CairoMakie
+    using NamedTrajectories
+    using PiccoloQuantumObjects
+
+    H_drift = PAULIS[:X]
+    H_drives = [PAULIS[:Z], PAULIS[:Y]]
+
+    N = 100
+
+    Δt = 0.1
+    ts = collect(0:Δt:Δt*(N-1))
+
+    a = 0.1 * randn(length(H_drives), length(ts))
+
+    Us = exp.(-im * [(H_drift + sum(a[:, k] .* H_drives)) * ts[k] for k = 1:N])
+
+    traj = NamedTrajectory(
+        (
+            Ũ⃗ = hcat(operator_to_iso_vec.(Us)...),
+            a = a
+        );
+        controls = :a,
+        timestep = Δt
+    )
+
+    fig = plot_unitary_populations(traj)
+    save("../assets/unitary_populations.png", fig)
+    @test fig isa Figure
 end
 
 end
