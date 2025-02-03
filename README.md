@@ -1,20 +1,69 @@
-# PiccoloPlots
+<!--```@raw html-->
+<div align="center">
+  <a href="https://github.com/kestrelquantum/Piccolo.jl">
+    <img src="assets/logo.svg" alt="logo" width="25%"/>
+  </a> 
+</div>
 
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://kestrelquantum.github.io/PiccoloPlots.jl/stable/)
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://kestrelquantum.github.io/PiccoloPlots.jl/dev/)
-[![Build Status](https://github.com/kestrelquantum/PiccoloPlots.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/kestrelquantum/PiccoloPlots.jl/actions/workflows/CI.yml?query=branch%3Amain)
-[![Coverage](https://codecov.io/gh/kestrelquantum/PiccoloPlots.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/kestrelquantum/PiccoloPlots.jl)
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <b>Documentation</b>
+        <br>
+        <a href="https://kestrelquantum.github.io/PiccoloPlots.jl/stable/">
+          <img src="https://img.shields.io/badge/docs-stable-blue.svg" alt="Stable"/>
+        </a>
+        <a href="https://kestrelquantum.github.io/PiccoloPlots.jl/dev/">
+          <img src="https://img.shields.io/badge/docs-dev-blue.svg" alt="Dev"/>
+        </a>
+      </td>
+      <td align="center">
+        <b>Build Status</b>
+        <br>
+        <a href="https://github.com/kestrelquantum/PiccoloPlots.jl/actions/workflows/CI.yml?query=branch%3Amain">
+          <img src="https://github.com/kestrelquantum/PiccoloPlots.jl/actions/workflows/CI.yml/badge.svg?branch=main" alt="Build Status"/>
+        </a>
+        <a href="https://codecov.io/gh/kestrelquantum/PiccoloPlots.jl">
+          <img src="https://codecov.io/gh/kestrelquantum/PiccoloPlots.jl/branch/main/graph/badge.svg" alt="Coverage"/>
+        </a>
+      </td>
+      <td align="center">
+        <b>License</b>
+        <br>
+        <a href="https://opensource.org/licenses/MIT">
+          <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License"/>
+        </a>
+      </td>
+      <td align="center">
+        <b>Support</b>
+        <br>
+        <a href="https://unitary.fund">
+          <img src="https://img.shields.io/badge/Supported%20By-Unitary%20Fund-FFFF00.svg" alt="Unitary Fund"/>
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>
 
-PiccoloPlots.jl is designed to hold plotting recipes for the Piccolo.jl package. It utilzes the `plot` method of the [`NamedTrajectories.jl`](https://github.com/kestrelquantum/NamedTrajectories.jl).
+<div align="center">
+  <i>Easy plotting of quantum control trajectories</i>
+  <br>
+</div>
+<!--```-->
 
-## Installation
+# PiccoloPlots.jl
+
+**PiccoloPlots.jl** is designed to hold plotting recipes for the Piccolo.jl package. It utilzes the `plot` method of the [`NamedTrajectories.jl`](https://github.com/kestrelquantum/NamedTrajectories.jl).
+
+### Installation
 PiccoloPlots.jl can be installed using the Julia package manager. From the Julia REPL, type `]` to enter the Pkg REPL mode and run:
 
 ```julia
 julia> ] add PiccoloPlots
 ```
 
-## Usage
+### Usage
 As a simple example, we provide the `plot_unitary_populations` function which plots the populations of select columns of the unitary matrix. This can be employed as follows:
 
 ```julia
@@ -51,10 +100,3 @@ traj = NamedTrajectory(
 plot_unitary_populations(traj)
 ```
 ![](assets/unitary_populations.png)
-
-## Contributing
-TODO: link to guidlines
-Contributions are welcome! Please read our [guidelines]() for more information.
-
-## License
-PiccoloPlots.jl is licensed under the MIT License.
