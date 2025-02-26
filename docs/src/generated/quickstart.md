@@ -4,11 +4,12 @@ EditURL = "../../literate/quickstart.jl"
 
 # Quickstart Guide
 
-Here is a simple example where we set up a `NamedTrajectory` with some dummy data and plot populations of the columns of the unitary matrix.
-
-First we will load some of the necessary packages
+Here is a simple example where we set up a `NamedTrajectory` with some dummy data and plot
+populations of the columns of the unitary matrix.
+First we will load some of the necessary packages:
 
 ````@example quickstart
+using CairoMakie
 using NamedTrajectories
 using PiccoloQuantumObjects
 using PiccoloPlots
