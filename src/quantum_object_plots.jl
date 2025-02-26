@@ -2,6 +2,9 @@ module QuantumObjectPlots
 
 export plot_unitary_populations
 
+using LaTeXStrings
+# only need MakieCore for plot name
+using MakieCore
 using NamedTrajectories
 using PiccoloQuantumObjects
 using TestItemRunner
@@ -36,27 +39,28 @@ function plot_unitary_populations(
     kwargs...
 )
 
-    transformations = OrderedDict(
-        unitary_name => [
-            x -> abs2.(iso_vec_to_operator(x)[:, i])
-                for i ∈ unitary_columns
-        ]
-    )
+    transformations = [
+        (unitary_name => x -> abs2.(iso_vec_to_operator(x)[:, i]))
+        for i ∈ unitary_columns
+    ]
 
-    transformation_titles = OrderedDict(
-        unitary_name => [
-            L"Populations: $\left| U_{:, %$(i)}(t) \right|^2$"
-                for i ∈ unitary_columns
-        ]
-    )
+    transformation_labels = [
+        L"P" for i ∈ unitary_columns
+    ]
 
-    plot(traj, [control_name];
+    transformation_titles = [
+        L"Populations: $\left| U_{:, %$(i)}(t) \right|^2$" for i ∈ unitary_columns
+    ]
+    
+    MakieCore.plot(traj, [control_name];
         transformations=transformations,
         transformation_titles=transformation_titles,
-        include_transformation_labels=true,
+        transformation_labels=transformation_labels,
         kwargs...
     )
 end
+
+# ============================================================================ #
 
 @testitem "Plot unitary populations" begin
     using CairoMakie
